@@ -1,0 +1,5 @@
+import { sqliteTable, text, integer, primaryKey } from 'drizzle-orm/sqlite-core';
+export const playlists = sqliteTable('playlists', { id: text('id').primaryKey(), userId: text('user_id').notNull(), name: text('name').notNull(), description: text('description').notNull().default(''), createdAt: integer('created_at').notNull() });
+export const playlistTracks = sqliteTable('playlist_tracks', { playlistId: text('playlist_id').notNull().references(() => playlists.id, { onDelete: 'cascade' }), trackId: text('track_id').notNull(), position: integer('position').notNull() }, t => [primaryKey({ columns: [t.playlistId, t.trackId] })]);
+export const likes = sqliteTable('likes', { userId: text('user_id').notNull(), trackId: text('track_id').notNull(), createdAt: integer('created_at').notNull() }, t => [primaryKey({ columns: [t.userId, t.trackId] })]);
+export const history = sqliteTable('history', { userId: text('user_id').notNull(), trackId: text('track_id').notNull(), playedAt: integer('played_at').notNull() }, t => [primaryKey({ columns: [t.userId, t.trackId] })]);
