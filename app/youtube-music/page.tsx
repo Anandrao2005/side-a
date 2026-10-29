@@ -15,7 +15,7 @@ function parsePlaylist(raw: string): { playlistId: string; url: string } | null 
   } catch { return null; }
 }
 export default function YouTubeMusicPage() {
-  const [items, setItems] = useState<SavedPlaylist[]>([]), [name, setName] = useState(''), [url, setUrl] = useState(''), [error, setError] = useState(''), [active, setActive] = useState<SavedPlaylist | null>(null);
+  const [items, setItems] = useState<SavedPlaylist[]>([]), [name, setName] = useState('My YouTube Music playlist'), [url, setUrl] = useState('https://music.youtube.com/playlist?list=PLE6cvGqCSQXs'), [error, setError] = useState(''), [active, setActive] = useState<SavedPlaylist | null>(null);
   useEffect(() => { try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') as SavedPlaylist[]; setItems(saved); if (saved[0]) setActive(saved[0]); } catch { setItems([]); } }, []);
   function save(next: SavedPlaylist[]) { setItems(next); localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); }
   function add(e: React.FormEvent) {
